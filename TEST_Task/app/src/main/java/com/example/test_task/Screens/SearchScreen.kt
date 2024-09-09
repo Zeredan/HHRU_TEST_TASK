@@ -761,7 +761,7 @@ fun VacancyShowcase(navController: NavController, vm: SearchScreenViewModel){
                     .fillMaxWidth()
                     .height(50.dp)
                     .clip(RoundedCornerShape(5.dp))
-                    .background(Color.Green)
+                    .background(colorResource(R.color.Green))
                     .clickable {
                         messageMode = false
                         currentMessage = ""

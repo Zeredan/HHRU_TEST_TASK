@@ -48,6 +48,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BadgedBox
@@ -75,6 +76,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -100,12 +102,16 @@ import kotlinx.coroutines.launch
 fun DigitalTextField(value: String, onValueChanged: (String) -> Unit, countDigits: Int, normalTextColor: Color, selectedTextColor: Color, normalBorderColor: Color, selectedBorderColor: Color){
     BasicTextField(
         value,
-        onValueChange = onValueChanged,
+        onValueChange = {
+            if (it.firstOrNull{ ch -> ch.isLetter() } == null) onValueChanged(it)
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         singleLine = true,
     )
     {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            modifier = Modifier.horizontalScroll(rememberScrollState())
         )
         {
             repeat(countDigits) {
@@ -121,7 +127,8 @@ fun DigitalTextField(value: String, onValueChanged: (String) -> Unit, countDigit
                         .size(40.dp, 60.dp),
                     text = try{value[it].toString()}catch (e: Exception){"*"},
                     textAlign = TextAlign.Center,
-                    color = if (it < value.length) selectedTextColor else normalTextColor
+                    color = if (it < value.length) selectedTextColor else normalTextColor,
+                    fontSize = 24.sp
                 )
             }
         }
