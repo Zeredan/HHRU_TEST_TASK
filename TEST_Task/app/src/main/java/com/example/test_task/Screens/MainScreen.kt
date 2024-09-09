@@ -120,7 +120,7 @@ fun MainScreen(
                 .weight(19f)
                 .fillMaxWidth(),
             navController = navController,
-            startDestination = "MainContent"
+            startDestination = "LogIn"
         )
         {
             composable("MainContent")
@@ -194,7 +194,7 @@ fun MainScreen(
                         ) {
                             Image(
                                 modifier = Modifier
-                                    .size(40.dp),
+                                    .size(30.dp),
                                 painter = painterResource(id = if (scrInfo.name == anchoredDraggableState.targetValue) scrInfo.imgSelected else scrInfo.imgNotSelected),
                                 contentDescription = scrInfo.name
                             )
@@ -231,7 +231,7 @@ fun MainScreen(
                             ) {
                                 Image(
                                     modifier = Modifier
-                                        .size(40.dp),
+                                        .size(30.dp),
                                     painter = painterResource(id = if (scrInfo.name == anchoredDraggableState.targetValue) scrInfo.imgSelected else scrInfo.imgNotSelected),
                                     contentDescription = scrInfo.name
                                 )
